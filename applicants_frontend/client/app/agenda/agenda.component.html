@@ -1,0 +1,42 @@
+<p>agenda works!</p>
+<!-- Button trigger modal -->
+
+  <button mat-button (click)="exporter.exportTable('xlsx')">Exportar</button>
+  <div class="example-container mat-elevation-z8">
+    <mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter">
+      
+      <ng-container matColumnDef="Nombre">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.apl_name}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="Teléfono">
+        <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.apl_phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Email">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.apl_email}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="Fecha">
+        <mat-header-cell *matHeaderCellDef> Fecha Entrevista </mat-header-cell>
+        <mat-cell *matCellDef="let element"><div *ngFor="let dt of element['process']"><div *ngIf="dt['stage'] == 'Primera Entrevista'">{{dt['pr_date'] | date }} {{dt['pr_date'] | date:'shortTime' }}</div></div></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Referido">
+        <mat-header-cell *matHeaderCellDef> Referido </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <div *ngFor="let rf of element.referedbyOne">{{rf.username}}</div> </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Enlace_CV">
+        <mat-header-cell *matHeaderCellDef> Enlace CV </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cv_link}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>

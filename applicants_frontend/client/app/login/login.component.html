@@ -1,0 +1,36 @@
+<app-toast [message]="toast.message"></app-toast>
+
+<body class="text-center">
+    
+  <main class="form-signin">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <img class="mb-4" src="https://github.com/JorgeScp/randomfiles/blob/main/e2e/logo_E2E.png?raw=true" alt="" width="200">
+      <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
+  
+      <div class="input-group" [ngClass]="setClassEmail()">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </div>
+        <input class="form-control" type="email" name="email"
+               formControlName="email" placeholder="Email" autofocus>
+      </div>
+      <div class="input-group" [ngClass]="setClassPassword()">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-key"></i>
+          </span>
+        </div>
+        <input class="form-control" type="password" name="password"
+               formControlName="password" placeholder="Password">
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">
+        <i class="fa fa-sign-in"></i> Login
+      </button>
+
+      <p class="mt-5 mb-3 text-muted"> Jorge Molano &copy; 2021</p>
+    </form>
+  </main>  
+      
+</body>

@@ -1,0 +1,216 @@
+<!-- Button trigger modal -->
+
+<div class="card-header">
+  <div>
+    <button type="button" class="btn btn-primary" style="background-color: #002b5c;" data-toggle="modal" data-target="#applicantModal">
+      Ingresar Candidato
+    </button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div #modalForm class="modal fade" id="applicantModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="applicantModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Candidato</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline2" [formGroup]="applicantForm" (ngSubmit)="addApplicant()">
+          <div class="form-group">
+            <label for="inputAddress">fecha</label>
+            <input type="date" class="form-control" formControlName="date" id="date" placeholder="1234 Main St">
+          </div>
+
+          <div class="form-row">
+                
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Nombre</label>
+              <input type="text" class="form-control" formControlName="apl_name" id="inputEmail4" placeholder="Email">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Id</label>
+              <input type="number" class="form-control" formControlName="apl_id" id="inputPassword4" placeholder="Password">
+            </div>
+        </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Telefono</label>
+                  <input type="number" formControlName="apl_phone" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>  
+
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Email</label>
+                  <input type="email" formControlName="apl_email" class="form-control" id="inputEmail4" placeholder="Email">
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Ciudad</label>
+              <input type="text" formControlName="apl_city" class="form-control" id="date" placeholder="1234 Main St">
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Estado</label>
+              <input type="text" formControlName="apl_state" class="form-control" id="date" placeholder="1234 Main St">
+            </div>
+  
+            <div class="form-group">
+              <label for="inputAddress">Enlace CV</label>
+              <input type="text" formControlName="cv_link" class="form-control" id="date" placeholder="1234 Main St">
+            </div>
+            
+
+            <div class="form-group">
+              <select class="custom-select" name="people" formControlName="referedby">
+                <option *ngFor="let user of users" value="{{user._id}}" >{{user.username}}</option>
+              </select>
+
+            </div>
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary" type="submit" [disabled]="!applicantForm.valid" data-dismiss="">
+            <i class="fa fa-plus"></i> Añadir
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card-body">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>
+          Fecha
+        </th>
+        <th>
+          Nombre
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+          Teléfono
+        </th>
+        <th>
+          Email
+        </th>
+        <th>
+          Estado
+        </th>
+        <th>
+          Acciones
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let apl of applicants">
+      <tr>
+        <td>
+        {{apl.date | date}}
+        </td>
+        <td>
+          {{apl.apl_name}}
+        </td>
+        <td>
+          {{apl.apl_id}}
+        </td>
+        <td>
+          {{apl.apl_phone}}
+        </td>
+        <td>
+          {{apl.apl_email}}
+        </td>
+        <td>
+          {{apl.apl_state}}
+        </td>
+        <td>
+          <button type="button" (click)="set_id_selected_apl(apl._id)" class="btn btn-primary" style="background-color: #002b5c;" data-toggle="modal" data-target="#processModal">
+            Iniciar Proceso
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<!-- PROCESS MODAL-->
+<div class="modal fade" id="processModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Proceso</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline2" [formGroup]="processForm" (ngSubmit)="addProcess(id_selected_apl)">
+
+          <div class="form-row">
+                
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Etapa</label>
+              <select class="form-control" formControlName="stage">
+                <option>Primera Entrevista</option>
+                <option>Entrevista Lider</option>
+                <option>Examen Médico</option>
+                <option>En proceso Contratación</option>
+                <option>Proceso Terminado</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Fecha</label>
+              <input type="datetime-local" class="form-control" formControlName="pr_date" id="inputPassword4" placeholder="Password">
+            </div>
+        </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Responsable</label>
+                  <select class="form-control" formControlName="responsible">
+                    <option>Jeimy Ortega</option>
+                    <option>Jimena Sanchez</option>
+                    <option>Líder-Jefe-Gerente</option>
+                    <option>Unidad de Salud</option>
+                    <option>Otros</option>
+                  </select>
+                </div>  
+
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Estado</label>
+              <select class="form-control" formControlName="state">
+                <option>En proceso</option>
+                <option>Satisfactorio</option>
+                <option>No satisfactorio</option>
+                <option>Inconcluso</option>
+                <option>No continua en proceso</option>
+                <option>Otros</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Observaciones</label>
+              <input type="text" formControlName="comments" class="form-control" id="date" placeholder="obs">
+            </div>
+
+            <input type="hidden" name="applicant_id" value="name">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary" type="submit" [disabled]="!processForm.valid">
+            <i class="fa fa-plus"></i> Añadir
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

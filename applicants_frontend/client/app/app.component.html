@@ -1,0 +1,66 @@
+<mat-toolbar class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="sidenav?.mode === 'over'" (click)="sidenav?.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          Cerrar
+      </mat-icon>
+  </button>
+  E2E Technology Solutions
+</mat-toolbar>
+
+<mat-sidenav-container>
+  
+  <mat-sidenav *ngIf="auth.loggedIn" #sidenav="matSidenav" class="mat-elevation-z8">
+
+      <img class="avatar mat-elevation-z8" src="https://github.com/JorgeScp/randomfiles/blob/main/e2e/image.png?raw=true" />
+
+      <h4 class="name">Gestión Humana</h4>
+      <!-- <p class="designation">-</p> -->
+
+      <mat-divider></mat-divider>
+
+      <ng-container *ngIf="auth.isAdmin">
+        <a routerLink="/" style="color: inherit;">
+        <button mat-button class="menu-button">
+          <mat-icon>home</mat-icon>
+          
+          <span>Inicio</span>
+      </button>
+      </a>
+      <a routerLink="/applicants" style="color: inherit;">
+
+      <button mat-button class="menu-button">
+          <mat-icon>person</mat-icon>
+          <span>Candidatos</span>
+      </button>
+    </a>
+
+      </ng-container>
+      
+      <ng-container>
+      <button mat-button class="menu-button">
+          <mat-icon>person</mat-icon>
+          <span>Mis Referidos</span>
+      </button>
+      </ng-container>
+
+      <mat-divider></mat-divider>
+
+      <a routerLink="/logout" style="color: inherit;">
+
+        <button mat-button class="menu-button">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar Sesión</span>
+        </button>
+      </a>
+
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <div class="content mat-elevation-z8">
+          <router-outlet></router-outlet>
+      </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

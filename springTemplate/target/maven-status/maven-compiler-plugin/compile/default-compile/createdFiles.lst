@@ -1,0 +1,9 @@
+portafolio/example/portafolio/PortafolioApplication.class
+portafolio/example/portafolio/services/UserServiceImplementation.class
+portafolio/example/portafolio/models/User.class
+portafolio/example/portafolio/services/UserService.class
+portafolio/example/portafolio/controllers/UserController.class
+portafolio/example/portafolio/repositories/RoleRepository.class
+portafolio/example/portafolio/repositories/UserRepository.class
+portafolio/example/portafolio/models/Role.class
+portafolio/example/portafolio/controllers/testHome.class
