@@ -29,47 +29,46 @@
                 
             <div class="form-group col-md-6">
               <label for="inputEmail4">Nombre</label>
-              <input type="text" class="form-control" formControlName="apl_name" id="inputEmail4" placeholder="Email">
+              <input type="text" class="form-control" formControlName="name" id="inputEmail4" placeholder="Email">
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">Id</label>
-              <input type="number" class="form-control" formControlName="apl_id" id="inputPassword4" placeholder="Password">
+              <input type="number" class="form-control" formControlName="nationalId" id="inputPassword4" placeholder="Password">
             </div>
         </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputPassword4">Telefono</label>
-                  <input type="number" formControlName="apl_phone" class="form-control" id="inputPassword4" placeholder="Password">
+                  <input type="number" formControlName="phone" class="form-control" id="inputPassword4" placeholder="Password">
                 </div>  
 
                 <div class="form-group col-md-6">
                   <label for="inputEmail4">Email</label>
-                  <input type="email" formControlName="apl_email" class="form-control" id="inputEmail4" placeholder="Email">
+                  <input type="email" formControlName="email" class="form-control" id="inputEmail4" placeholder="Email">
                 </div>
             </div>
 
             <div class="form-group">
               <label for="inputAddress">Ciudad</label>
-              <input type="text" formControlName="apl_city" class="form-control" id="date" placeholder="1234 Main St">
+              <input type="text" formControlName="city" class="form-control" id="date" placeholder="1234 Main St">
             </div>
 
             <div class="form-group">
               <label for="inputAddress">Estado</label>
-              <input type="text" formControlName="apl_state" class="form-control" id="date" placeholder="1234 Main St">
+              <input type="text" formControlName="status" class="form-control" id="date" placeholder="1234 Main St">
             </div>
   
             <div class="form-group">
               <label for="inputAddress">Enlace CV</label>
-              <input type="text" formControlName="cv_link" class="form-control" id="date" placeholder="1234 Main St">
+              <input type="text" formControlName="cvLink" class="form-control" id="date" placeholder="1234 Main St">
             </div>
             
 
             <div class="form-group">
-              <select class="custom-select" name="people" formControlName="referedby">
+              <select class="custom-select" name="people" formControlName="referedBy">
                 <option *ngFor="let user of users" value="{{user._id}}" >{{user.username}}</option>
               </select>
-
             </div>
 
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -116,22 +115,22 @@
         {{apl.date | date}}
         </td>
         <td>
-          {{apl.apl_name}}
+          {{apl.id}}
         </td>
         <td>
-          {{apl.apl_id}}
+          {{apl.nationalId}}
         </td>
         <td>
-          {{apl.apl_phone}}
+          {{apl.phone}}
         </td>
         <td>
-          {{apl.apl_email}}
+          {{apl.email}}
         </td>
         <td>
-          {{apl.apl_state}}
+          {{apl.status}}
         </td>
         <td>
-          <button type="button" (click)="set_id_selected_apl(apl._id)" class="btn btn-primary" style="background-color: #002b5c;" data-toggle="modal" data-target="#processModal">
+          <button type="button" (click)="set_id_selected_apl(apl.id)" class="btn btn-primary" style="background-color: #002b5c;" data-toggle="modal" data-target="#processModal">
             Iniciar Proceso
           </button>
         </td>
@@ -168,7 +167,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">Fecha</label>
-              <input type="datetime-local" class="form-control" formControlName="pr_date" id="inputPassword4" placeholder="Password">
+              <input type="datetime-local" class="form-control" formControlName="date" id="inputPassword4" placeholder="Password">
             </div>
         </div>
 
@@ -188,7 +187,7 @@
 
             <div class="form-group">
               <label for="inputAddress">Estado</label>
-              <select class="form-control" formControlName="state">
+              <select class="form-control" formControlName="status">
                 <option>En proceso</option>
                 <option>Satisfactorio</option>
                 <option>No satisfactorio</option>

@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +27,7 @@ import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
+@Slf4j
 @RestController @RequiredArgsConstructor @RequestMapping("/api")
 public class UserController {
     private final UserServiceImplementation userServiceImplementation;
@@ -37,11 +39,12 @@ public class UserController {
     }
 
     @PostMapping("/user/save")
-    public ResponseEntity<User> saveUser(User user){
-
+    public ResponseEntity<User> saveUser(@RequestBody User user){
+        log.info("Data recieved{}",user);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userServiceImplementation.saveUser(user));
     }
+
 
     @PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(Role role){

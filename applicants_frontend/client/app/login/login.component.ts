@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { AuthService } from '../services/auth.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { LoginRequestPayload } from './login-request.payload';
 
 @Component({
   selector: 'app-login',
@@ -12,35 +13,41 @@ import { ToastComponent } from '../shared/toast/toast.component';
 })
 export class LoginComponent implements OnInit {
 
+  loginRequestPayload: LoginRequestPayload;
   loginForm: FormGroup;
-  email = new FormControl('', [
-    Validators.email,
+  username = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
     Validators.maxLength(100)
   ]);
   password = new FormControl('', [
     Validators.required,
-    Validators.minLength(6)
+    Validators.minLength(4)
   ]);
 
   constructor(private auth: AuthService,
               private formBuilder: FormBuilder,
               private router: Router,
-              public toast: ToastComponent) { }
+              public toast: ToastComponent,
+              ) {
+                this.loginRequestPayload = {
+                  username: '',
+                  password: ''
+                };
+              }
 
   ngOnInit(): void {
     if (this.auth.loggedIn) {
       this.router.navigate(['/admin']);
     }
     this.loginForm = this.formBuilder.group({
-      email: this.email,
+      username: this.username,
       password: this.password
     });
   }
 
   setClassEmail(): object {
-    return { 'has-danger': !this.email.pristine && !this.email.valid };
+    return { 'has-danger': !this.username.pristine && !this.username.valid };
   }
 
   setClassPassword(): object {
@@ -48,7 +55,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.auth.login(this.loginForm.value);
+    this.loginRequestPayload.username = this.loginForm.get('username').value;
+    this.loginRequestPayload.password = this.loginForm.get('password').value;
+    console.log(this.loginRequestPayload);
+    this.auth.login(this.loginRequestPayload);
   }
-  
 }

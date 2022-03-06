@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, DoCheck, ViewChild } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -12,7 +12,7 @@ import { delay } from 'rxjs/operators';
 export class AppComponent implements AfterViewChecked {
 
   @ViewChild(MatSidenav)
-  sidenav!: MatSidenav;
+  sidenav: MatSidenav;
 
   constructor(public auth: AuthService,
               private changeDetector: ChangeDetectorRef,
@@ -23,18 +23,20 @@ export class AppComponent implements AfterViewChecked {
     this.changeDetector.detectChanges();
   }
 
-  ngDoCheck() {
-      this.observer
-      .observe(['(max-width: 800px)'])
-      .pipe(delay(1))
-      .subscribe((res) => {
-        if (res.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
-        } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
-        }
-      });
-    } 
+  // ngDoCheck() {
+  //     if(this.sidenav !== undefined && this.sidenav !== null){
+  //       this.observer
+  //       .observe(['(max-width: 800px)'])
+  //       .pipe(delay(1))
+  //       .subscribe((res) => {
+  //         if (res.matches) {
+  //           this.sidenav.mode = 'over';
+  //           this.sidenav?.close();
+  //         } else {
+  //           this.sidenav.mode = 'side';
+  //           this.sidenav.open();
+  //         }
+  //       });
+  //     }
+  //  }
 }

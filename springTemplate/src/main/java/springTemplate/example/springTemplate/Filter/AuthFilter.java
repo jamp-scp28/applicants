@@ -2,6 +2,7 @@ package springTemplate.example.springTemplate.Filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
@@ -29,7 +34,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        log.info("user{},{}",request.getParameter("username"),request.getParameter("password"));
+        log.info("user info is{},{}",request.getParameter("username"),request.getParameter("password"));
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,password);
@@ -43,7 +48,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis()+10*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis()+3600*60*1000))
                 .withIssuer(request.getRequestURI().toString())
                 .withClaim("roles",user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
@@ -54,7 +59,13 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
                 .withIssuer(request.getRequestURI().toString())
                 .sign(algorithm);
 
-        response.setHeader("access_token",access_token);
-        response.setHeader("refresh_token",refresh_token);
+        /*response.setHeader("access_token",access_token);
+        response.setHeader("refresh_token",refresh_token);*/
+        Map<String,String> token = new HashMap<>();
+        token.put("access_token",access_token);
+        token.put("refresh_token",refresh_token);
+        response.setContentType(APPLICATION_JSON_VALUE);
+        new ObjectMapper().writeValue(response.getOutputStream(),token);
+
     }
 }

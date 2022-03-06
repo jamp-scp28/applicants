@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class UserServiceImplementation implements UserService, UserDetailsService {
     private final UserRepository userrepo;
@@ -26,6 +27,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info(username);
         User user = userrepo.findByUsername(username);
         if (user==null){
             log.error("User not found");
@@ -56,6 +58,16 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
         User user = userrepo.findByUsername(username);
         Role role = rolerepo.findByName(roleName);
         user.getRoles().add(role);
+    }
+
+    @Override
+    public boolean getRole(String roleName){
+        if(rolerepo.findByName(roleName) != null){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override

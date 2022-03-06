@@ -18,7 +18,10 @@ public class User {
     private Long id;
     private String name;
     private String username;
+    private Integer nationalId;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private Collection<Applicant> applicants = new ArrayList<>();
 }

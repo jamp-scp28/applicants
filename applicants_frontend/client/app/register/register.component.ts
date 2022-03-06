@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from '../services/user.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { RegisterRequestPayload } from './register-request.payload';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
+  @Output() newItemEvent = new EventEmitter<any>();
+  registerRequestPayload: RegisterRequestPayload;
 
   registerForm: FormGroup;
   username = new FormControl('', [
@@ -18,7 +21,7 @@ export class RegisterComponent implements OnInit {
     Validators.maxLength(30),
     Validators.pattern('[a-zA-Z0-9_-\\s]*')
   ]);
-  user_id = new FormControl('');
+  userId = new FormControl('');
   email = new FormControl('', [
     Validators.email,
     Validators.required,
@@ -37,12 +40,18 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               public toast: ToastComponent,
-              private userService: UserService) { }
+              private userService: UserService,
+              ) {
+                this.registerRequestPayload = {
+                  username: '',
+                  password: '',
+                };
+               }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       username: this.username,
-      user_id: this.user_id,
+      userId: this.userId,
       email: this.email,
       password: this.password,
       role: this.role
@@ -62,7 +71,11 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.userService.register(this.registerForm.value).subscribe(
+    this.registerRequestPayload.username = this.registerForm.get('username').value;
+    this.registerRequestPayload.password = this.registerForm.get('password').value;
+    this.newItemEvent.emit(this.registerRequestPayload);
+
+    this.userService.register(this.registerRequestPayload).subscribe(
       res => {
         this.toast.setMessage('You successfully registered!', 'success');
         //this.router.navigate(['/login']);

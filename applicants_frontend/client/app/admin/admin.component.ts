@@ -30,6 +30,12 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  addItem(data: any){
+    this.users.push({
+      username:data.username,
+    });
+  }
+
   deleteUser(user: User): void {
     if (window.confirm('Are you sure you want to delete ' + user.username + '?')) {
       this.userService.deleteUser(user).subscribe(

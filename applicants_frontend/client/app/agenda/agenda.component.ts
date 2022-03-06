@@ -34,7 +34,7 @@ export class AgendaComponent implements OnInit  {
   
 
   get_interviews(): void{
-    this.applicantService.get_process().subscribe(
+    this.applicantService.getProcess().subscribe(
         (res) => {
           console.log(res);
 

@@ -31,8 +31,8 @@
         </div>
         <select class="custom-select" name="role" [(ngModel)]="user.role">
           <option value="" disabled>Role</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
+          <option value="ROLE_USER">USER</option>
+          <option value="ROLE_ADMIN">ADMIN</option>
         </select>
       </div>
       <button class="btn btn-primary" type="submit" [disabled]="!accountForm.form.valid">
