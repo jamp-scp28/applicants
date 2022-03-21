@@ -2,10 +2,15 @@
 
 <div class="card-header">
   <div>
-    <button type="button" class="btn btn-primary" style="background-color: #002b5c;" data-toggle="modal" data-target="#applicantModal">
-      Ingresar Candidato
-    </button>
+    <h1 class="text-3xl text-gray-dark">APPLICANTS PAGE</h1>
   </div>
+</div>
+
+
+<div class="py-4">
+  <button type="button" class="bg-blue-500 text-white border-2 border-gray-dark py-2 px-4 rounded hover:bg-gray"  data-toggle="modal" data-target="#applicantModal">
+    Add Applicant
+  </button>
 </div>
 
 <!-- Modal -->
@@ -82,61 +87,68 @@
 </div>
 
 
-<div class="card-body">
-  <table class="table table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th>
-          Fecha
-        </th>
-        <th>
-          Nombre
-        </th>
-        <th>
-          ID
-        </th>
-        <th>
-          Teléfono
-        </th>
-        <th>
-          Email
-        </th>
-        <th>
-          Estado
-        </th>
-        <th>
-          Acciones
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let apl of applicants">
-      <tr>
-        <td>
-        {{apl.date | date}}
-        </td>
-        <td>
-          {{apl.id}}
-        </td>
-        <td>
-          {{apl.nationalId}}
-        </td>
-        <td>
-          {{apl.phone}}
-        </td>
-        <td>
-          {{apl.email}}
-        </td>
-        <td>
-          {{apl.status}}
-        </td>
-        <td>
-          <button type="button" (click)="set_id_selected_apl(apl.id)" class="btn btn-primary" style="background-color: #002b5c;" data-toggle="modal" data-target="#processModal">
-            Iniciar Proceso
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="flex flex-col w-full">
+  <div class="overflow-x-auto shadow-md sm:rounded-lg">
+      <div class="inline-block min-w-full align-middle bg-gray">
+          
+        <div class="p-4">
+              <label for="table-search" class="sr-only">Search</label>
+              <div class="relative mt-1">
+                  <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                      <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                  </div>
+                  <input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
+              </div>
+          </div>
+
+          <div class="overflow-hidden">
+              <table class="min-w-full divide-y divide-gray table-fixed divide-gray-light">
+                  <thead class="bg-blue">
+                      <tr>
+                          <th scope="col" class="table-th">
+                              Date
+                          </th>
+                          <th scope="col" class="table-th">
+                              Name
+                          </th>
+                          <th scope="col" class="table-th">
+                            ID
+                        </th>
+                          <th scope="col" class="table-th">
+                              Phone
+                          </th>
+                          <th scope="col" class="table-th">
+                            Email
+                          </th>
+                          <th scope="col" class="table-th">
+                            Status
+                          </th>
+                          <th scope="col" class="table-th">
+                              Actions
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody *ngFor="let applicant of applicants" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                      
+                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.date | date }}</td>
+                          <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap ">{{applicant.name }}</td>
+                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.nationalId }}</td>
+                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.phone }}</td>
+                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.email }}</td>
+                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.status }}</td>
+                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                            <button type="button" (click)="set_id_selected_apl(applicant.id)" class="text-white bg-gray-dark border-2 border-blue-500 py-2 px-3 rounded hover:bg-blue-500" data-toggle="modal" data-target="#processModal">
+                              Iniciar Proceso
+                            </button>
+                          </td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
 </div>
 
 <!-- Modal -->
@@ -202,7 +214,7 @@
               <input type="text" formControlName="comments" class="form-control" id="date" placeholder="obs">
             </div>
 
-            <input type="hidden" name="applicant_id" value="name">
+            <!-- <input type="hidden" name="applicant_id" value="name"> -->
 
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           <button class="btn btn-primary" type="submit" [disabled]="!processForm.valid">

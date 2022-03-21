@@ -21,9 +21,10 @@ public class Applicant {
     private String city;
     private String status;
     private String cvLink;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
-    private List<Process> processes;
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
 }
+
+

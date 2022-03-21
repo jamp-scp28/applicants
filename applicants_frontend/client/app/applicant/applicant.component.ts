@@ -10,12 +10,12 @@ import { Renderer2 } from '@angular/core';
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
-  styleUrls: ['./applicant.component.scss']
+  styleUrls: ['./applicant.component.scss','./applicant.css']
 })
 export class ApplicantComponent implements OnInit {
-    @ViewChild('modalForm') modal: ElementRef;
+    @ViewChild('modalForm') modal!: ElementRef;
 
-    id_selected_apl: string;
+    id_selected_apl = '';
 
     crt_user = new User();
     users: User[] = [];
@@ -25,7 +25,6 @@ export class ApplicantComponent implements OnInit {
     isLoading = true;
     isEditing = false;
 
-    processForm: FormGroup;
     applicant_id = new FormControl('');
     stage= new FormControl('');
     pr_date= new FormControl('');
@@ -33,7 +32,6 @@ export class ApplicantComponent implements OnInit {
     pr_status= new FormControl('');
     comments= new FormControl('');
 
-    applicantForm: FormGroup;
     date = new FormControl('', Validators.required);
     name= new FormControl('', Validators.required);
     nationalId= new FormControl('', );
@@ -44,6 +42,26 @@ export class ApplicantComponent implements OnInit {
     cvLink= new FormControl('',);
     referedBy = new FormControl('',);
     process = new FormControl('');
+
+    processForm = this.FormBuilder.group({
+      stage: this.stage,
+      date: this.pr_date,
+      responsible: this.responsible,
+      status: this.pr_status,
+      comments: this.comments,
+    });
+
+    applicantForm = this.FormBuilder.group({
+      date: this.date,
+      name: this.name,
+      nationalId: this.nationalId,
+      phone: this.phone,
+      email: this.email,
+      city: this.city,
+      status: this.status,
+      cvLink: this.cvLink,
+      referedBy: this.referedBy,
+    });
 
   constructor(
     // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -57,36 +75,18 @@ export class ApplicantComponent implements OnInit {
   ngOnInit(): void {
     this.getApplicants();
     this.getUsers();
+    this.getApplicantProcess();
 
-    this.processForm = this.FormBuilder.group({
-      applicant: this.applicant_id,
-      stage: this.stage,
-      date: this.pr_date,
-      responsible: this.responsible,
-      status: this.pr_status,
-      comments: this.comments,
-    });
 
-    this.applicantForm = this.FormBuilder.group({
-      date: this.date,
-      name: this.name,
-      nationalId: this.nationalId,
-      phone: this.phone,
-      email: this.email,
-      city: this.city,
-      status: this.status,
-      cvLink: this.cvLink,
-      referedBy: this.referedBy,
-    });
   }
 
-  set_id_selected_apl(id): void{
+  set_id_selected_apl(id: any): void{
     this.id_selected_apl = id;
     console.log(this.id_selected_apl);
     console.log(id);
   }
 
-  addProcess(applicant_id): void{
+  addProcess(applicant_id: any): void{
     const apl = this.applicant;
     const aplId = applicant_id;
 
@@ -125,7 +125,7 @@ export class ApplicantComponent implements OnInit {
     );
   }
 
-  updateUser(user_id, apl_id): void{
+  updateUser(user_id: any, apl_id: any): void{
     const user = this.crt_user;
     user._id = user_id;
 
@@ -152,6 +152,12 @@ export class ApplicantComponent implements OnInit {
       data => this.users = data,
       error => console.log(error),
       () => this.isLoading = false,
+    );
+  }
+
+  getApplicantProcess(): void{
+    this.applicantService.getApplicantProcess(10).subscribe(
+      data => console.log(data),
     );
   }
 

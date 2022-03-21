@@ -14,7 +14,7 @@ import { LoginRequestPayload } from './login-request.payload';
 export class LoginComponent implements OnInit {
 
   loginRequestPayload: LoginRequestPayload;
-  loginForm: FormGroup;
+
   username = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
@@ -24,6 +24,11 @@ export class LoginComponent implements OnInit {
     Validators.required,
     Validators.minLength(4)
   ]);
+
+  loginForm = this.formBuilder.group({
+    username: this.username,
+    password: this.password
+  });
 
   constructor(private auth: AuthService,
               private formBuilder: FormBuilder,
@@ -40,10 +45,6 @@ export class LoginComponent implements OnInit {
     if (this.auth.loggedIn) {
       this.router.navigate(['/admin']);
     }
-    this.loginForm = this.formBuilder.group({
-      username: this.username,
-      password: this.password
-    });
   }
 
   setClassEmail(): object {
@@ -55,8 +56,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.loginRequestPayload.username = this.loginForm.get('username').value;
-    this.loginRequestPayload.password = this.loginForm.get('password').value;
+    this.loginRequestPayload.username = this.loginForm.get('username')?.value;
+    this.loginRequestPayload.password = this.loginForm.get('password')?.value;
     console.log(this.loginRequestPayload);
     this.auth.login(this.loginRequestPayload);
   }

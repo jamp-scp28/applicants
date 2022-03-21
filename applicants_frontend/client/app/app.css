@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.link{
+    @apply flex text-gray items-center w-full space-x-2 rounded-lg;
+}
+
+.link:hover {
+    @apply flex text-gray items-center border-white w-full space-x-2 bg-blue-100 rounded-lg;
+}
+
+.active-link {
+    @apply flex text-white items-center w-full space-x-2 bg-blue-500 rounded-lg;
+}
+
+.active-link:hover {
+    @apply flex text-white items-center border-white w-full space-x-2 bg-blue-500 rounded-lg;
+}

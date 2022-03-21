@@ -11,7 +11,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class AccountComponent implements OnInit {
 
-  user: User;
+  user!: User;
   isLoading = true;
 
   constructor(private auth: AuthService,

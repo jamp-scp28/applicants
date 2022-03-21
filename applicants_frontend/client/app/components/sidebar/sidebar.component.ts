@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import * as $ from 'jquery';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -9,17 +9,17 @@ import { delay } from 'rxjs/operators';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  
+
   constructor(
     private observer: BreakpointObserver) { }
 
   ngOnInit(): void {
-    $("#menu-toggle").click(function(e) {
+    $('#menu-toggle').click((e: any) => {
       e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
+      $('#wrapper').toggleClass('toggled');
     });
   }
 

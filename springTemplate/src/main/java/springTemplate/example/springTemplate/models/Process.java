@@ -1,5 +1,7 @@
 package springTemplate.example.springTemplate.models;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +12,7 @@ import java.util.Date;
 @Entity
 @Data
 @RequiredArgsConstructor
+
 public class Process {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +22,8 @@ public class Process {
     private String responsible;
     private String status;
     private String comments;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name="applicant_id")
+    @JsonIgnore
     private Applicant applicant;
 }

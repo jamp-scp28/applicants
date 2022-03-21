@@ -12,39 +12,40 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class AgendaComponent implements OnInit  {
 
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
   displayedColumns = ['Nombre', 'Teléfono', 'Email', 'Fecha', 'Referido', 'Enlace_CV'];
   public dataSource = new MatTableDataSource<Element>();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   apl: Applicant[] = [];
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ELEMENT_DATA: Element[] = [];
 
-  constructor(private applicantService: applicantService,
-     private excelService: ExcelService) { }
+  constructor(
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    private applicantService: applicantService,
+    private excelService: ExcelService) { }
 
   ngOnInit(): void {
-    this.get_interviews();
+    this.getInterviews();
   }
 
 
-  exportAsXLSX():void {
+  exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.apl, 'Entrevistas');
   }
-  
 
-  get_interviews(): void{
+  getInterviews(): void{
     this.applicantService.getProcess().subscribe(
         (res) => {
           console.log(res);
 
           this.dataSource = new MatTableDataSource(res);
         }
-    ); 
+    );
     this.dataSource.paginator = this.paginator;
   }
-  
-
 }
 
 export interface Element {
@@ -53,5 +54,5 @@ export interface Element {
   email: string;
   fecha: string;
   referido: string;
-  enlace_CV: string;
+  enlaceCV: string;
 }

@@ -10,5 +10,4 @@ export class AuthGuardLogin implements CanActivate {
   canActivate(): boolean {
     return this.auth.loggedIn;
   }
-
 }

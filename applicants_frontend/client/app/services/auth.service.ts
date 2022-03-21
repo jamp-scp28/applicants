@@ -11,6 +11,7 @@ import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../login/login-response.payload';
 import { decode } from 'querystring';
+import { applicantService } from './applicant.service';
 
 @Injectable()
 export class AuthService {
@@ -21,13 +22,21 @@ export class AuthService {
 
   constructor(private userService: UserService,
               private router: Router,
+              private applicantService: applicantService,
               private jwtHelper: JwtHelperService,
               public toast: ToastComponent,
               private httpClient: HttpClient,) {
+
     const token = localStorage.getItem('token');
-    if (token) {
+
+    if (token !== null) {
+      console.log(token);
       const decodedUser = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUser);
+      this.applicantService.getProcess();
+      this.userService.getUsers();
+    } else{
+      console.log('not token');
     }
   }
 

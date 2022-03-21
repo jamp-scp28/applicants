@@ -10,11 +10,10 @@ import { RegisterRequestPayload } from './register-request.payload';
   selector: 'app-register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   @Output() newItemEvent = new EventEmitter<any>();
   registerRequestPayload: RegisterRequestPayload;
 
-  registerForm: FormGroup;
   username = new FormControl('', [
     Validators.required,
     Validators.minLength(2),
@@ -37,6 +36,15 @@ export class RegisterComponent implements OnInit {
   ]);
 
 
+  registerForm = this.formBuilder.group({
+    username: this.username,
+    userId: this.userId,
+    email: this.email,
+    password: this.password,
+    role: this.role
+  });
+
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               public toast: ToastComponent,
@@ -48,15 +56,8 @@ export class RegisterComponent implements OnInit {
                 };
                }
 
-  ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
-      username: this.username,
-      userId: this.userId,
-      email: this.email,
-      password: this.password,
-      role: this.role
-    });
-  }
+  //ngOnInit(): void {}
+
 
   setClassUsername(): object {
     return { 'has-danger': !this.username.pristine && !this.username.valid };
@@ -71,8 +72,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.registerRequestPayload.username = this.registerForm.get('username').value;
-    this.registerRequestPayload.password = this.registerForm.get('password').value;
+    this.registerRequestPayload.username = this.registerForm.get('username')?.value;
+    this.registerRequestPayload.password = this.registerForm.get('password')?.value;
     this.newItemEvent.emit(this.registerRequestPayload);
 
     this.userService.register(this.registerRequestPayload).subscribe(

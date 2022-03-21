@@ -66,7 +66,7 @@ export class UserService {
     return this.http.put(`/api/user/${user._id}`, user, { responseType: 'text' });
   }
 
-  editUser2(user: User, data): Observable<any> {
+  editUser2(user: User, data: any): Observable<any> {
     return this.http.put(`/api/user/v2/${user._id}`, data, { responseType: 'text' });
   }
 

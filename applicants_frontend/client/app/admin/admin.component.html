@@ -2,9 +2,13 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">Registered users ({{users.length}})</h4>
-  <div class="card-body">
+<div *ngIf="!isLoading">
+  <h1 class="text-3xl mt-0 text-bold">Admin Dashboard</h1>
+
+
+
+  <!-- <h4 class="card-header">Registered users ({{users.length}})</h4>
+  <div class="flex flex-1 w-64">
     <table class="table table-bordered datatable">
       <thead class="thead-light">
         <tr>
@@ -33,7 +37,6 @@
         </tr>  
       </tbody>
     </table>
-  </div>
+  </div> -->
 </div>
-<app-applicant></app-applicant>
-<app-register (newItemEvent)="addItem($event)"></app-register>>
+<!-- <app-register (newItemEvent)="addItem($event)"></app-register> -->
