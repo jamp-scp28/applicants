@@ -14,7 +14,6 @@ import { ExcelService } from './services/excel.service';
 
 // Components
 import { AppComponent } from './app.component';
-import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -36,13 +35,13 @@ import {MatTableModule} from '@angular/material/table';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { AgendaComponent } from './agenda/agenda.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ApplicantPageComponent } from './applicant-page/applicant-page.component';
 
 @NgModule({
   declarations: [
     //main components
     ApplicantComponent,
     AppComponent,
-    AboutComponent,
     RegisterComponent,
     LoginComponent,
     LogoutComponent,
@@ -51,6 +50,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     NotFoundComponent,
     SidebarComponent,
     AgendaComponent,
+    ApplicantPageComponent,
     //material
   ],
   imports: [

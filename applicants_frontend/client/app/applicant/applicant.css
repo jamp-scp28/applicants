@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 .table-th{
-    @apply py-3 px-6 text-xs tracking-wider text-left text-gray-light uppercase font-bold;
+    @apply bg-blue py-3 px-6 text-xs tracking-wider text-left text-gray-light uppercase font-bold;
+}
+
+.applicant-link:hover{
+    @apply bg-blue-500 py-1 px-1 text-white font-bold rounded-lg;
 }

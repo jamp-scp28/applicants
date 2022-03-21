@@ -22,6 +22,7 @@ export class AuthService {
 
   constructor(private userService: UserService,
               private router: Router,
+              // eslint-disable-next-line @typescript-eslint/no-shadow
               private applicantService: applicantService,
               private jwtHelper: JwtHelperService,
               public toast: ToastComponent,
@@ -41,15 +42,6 @@ export class AuthService {
   }
 
   login(loginRequestPayload: LoginRequestPayload): void {
-    // return this.httpClient.post<LoginResponse>('http://localhost:8080/login',
-    //   loginRequestPayload).pipe(map(data=>{
-    //     localStorage.setItem('token',data.authenticationToken);
-    //     this.loggedIn = true;
-    //     this.router.navigate(['/admin']);
-    //     console.log(data);
-    //     return true;
-    //   },
-    //   error => this.toast.setMessage('Invalid email or password!', 'danger')));
     this.userService.login(loginRequestPayload).subscribe(
       res => {
         console.log(res);
@@ -65,6 +57,7 @@ export class AuthService {
   }
 
   logout(): void {
+
     localStorage.removeItem('token');
     this.loggedIn = false;
     this.isAdmin = false;

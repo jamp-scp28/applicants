@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController @RequiredArgsConstructor @RequestMapping("/api")
-public class ProcessController {
+public class    ProcessController {
     private final ProcessRepository processRepository;
     private final ProcessService processService;
     private final ApplicantRepository applicantRepository;
@@ -48,7 +48,9 @@ public class ProcessController {
 
     @GetMapping("/applicants/{aplId}/process")
     public ResponseEntity<List<Process>> getApplicantProcess(@PathVariable (value = "aplId") Long aplId, Pageable pageable){
+        log.info("processs {}",processRepository.findProcessByApplicantId(aplId));
        return ResponseEntity.ok().body(processRepository.findProcessByApplicantId(aplId));
+
     }
 
 }

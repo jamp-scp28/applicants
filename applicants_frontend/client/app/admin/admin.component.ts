@@ -7,7 +7,8 @@ import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-admin',
-  templateUrl: './admin.component.html'
+  templateUrl: './admin.component.html',
+  styleUrls:['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
 
@@ -24,7 +25,7 @@ export class AdminComponent implements OnInit {
 
   getUsers(): void {
     this.userService.getUsers().subscribe(
-      data => this.users = data,
+      data => {this.users = data; console.log(this.users);},
       error => console.log(error),
       () => this.isLoading = false
     );

@@ -9,6 +9,8 @@ export class applicantService{
     baseUrl = 'http://localhost:8080';
     httpOptions: any;
     httpOptionsPr: any;
+    applicantId!: number;
+
     constructor(private http: HttpClient){
         const token = localStorage.getItem('token');
         this.httpOptions = {
@@ -52,12 +54,16 @@ export class applicantService{
     }
 
     getApplicantProcess(aplId: number): Observable<any>{
-        return this.http.get(`${this.baseUrl}/api/applicants/${aplId}/process/`,this.httpOptionsPr);
+        return this.http.get(`${this.baseUrl}/api/applicants/${aplId}/process/`,this.httpOptions);
     }
 
     addProcess(process: any, aplId: number): Observable <any>{
         console.log(process);
         return this.http.post(`${this.baseUrl}/api/applicants/${aplId}/process/add/`,process,this.httpOptionsPr);
+    }
+
+    setApplicantId(id: number){
+        this.applicantId = id;
     }
 
 }

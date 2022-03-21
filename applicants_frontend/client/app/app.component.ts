@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, DoCheck, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -9,7 +9,7 @@ import { delay } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss','./app.css']
 })
-export class AppComponent implements AfterViewChecked {
+export class AppComponent implements AfterContentChecked {
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -18,6 +18,7 @@ export class AppComponent implements AfterViewChecked {
   @ViewChild('users') users!: ElementRef;
   @ViewChild('applicants') applicants!: ElementRef;
 
+  isLoggedIn: boolean | undefined;
   //SideBar Options
   isSidebarOpen = true;
   isPanelOpen = false;
@@ -29,8 +30,9 @@ export class AppComponent implements AfterViewChecked {
               private render: Renderer2) { }
 
   // This fixes: https://github.com/DavideViolante/Angular-Full-Stack/issues/105
-  ngAfterViewChecked(): void {
+  ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
+    this.isLoggedIn = this.auth.loggedIn;
   }
 
   tooglePanel(){
@@ -45,7 +47,11 @@ export class AppComponent implements AfterViewChecked {
     console.log(linkOne);
 
     this.render.addClass(linkOne,'active-link');
+  }
 
+  logOut(){
+    this.auth.logout();
+    console.log(this.auth.loggedIn);
   }
   // ngDoCheck() {
   //     if(this.sidenav !== undefined && this.sidenav !== null){

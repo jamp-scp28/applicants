@@ -2,7 +2,7 @@
 
 <div class="card-header">
   <div>
-    <h1 class="text-3xl text-gray-dark">APPLICANTS PAGE</h1>
+    <h1 class="text-3xl text-gray-dark">Applicants Page</h1>
   </div>
 </div>
 
@@ -14,26 +14,30 @@
 </div>
 
 <!-- Modal -->
-<div #modalForm class="modal fade" id="applicantModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="applicantModalLabel" aria-hidden="true">
+<div class="overflow-auto h-64 t-0 bg-gray bg-opacity-30 hidden fade fixed right-0 z-50 align-middle justify-center items-center h-modal md:h-full md:inset-0" id="applicantModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="applicantModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+
+    <div class="bg-gray modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Candidato</h3>
+        <h3 class="text-2xl font-bold text-white" id="exampleModalLabel">Applicant</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form class="form-inline2" [formGroup]="applicantForm" (ngSubmit)="addApplicant()">
+
+      <div class="relative overflow-auto modal-body bg-gray-light bg-opacity-90">
+
+        <form class="" [formGroup]="applicantForm" (ngSubmit)="addApplicant()">
+          
           <div class="form-group">
-            <label for="inputAddress">fecha</label>
-            <input type="date" class="form-control" formControlName="date" id="date" placeholder="1234 Main St">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" formControlName="date" id="date">
           </div>
 
           <div class="form-row">
                 
             <div class="form-group col-md-6">
-              <label for="inputEmail4">Nombre</label>
+              <label for="inputEmail4">Name</label>
               <input type="text" class="form-control" formControlName="name" id="inputEmail4" placeholder="Email">
             </div>
             <div class="form-group col-md-6">
@@ -55,17 +59,17 @@
             </div>
 
             <div class="form-group">
-              <label for="inputAddress">Ciudad</label>
+              <label for="inputAddress">City</label>
               <input type="text" formControlName="city" class="form-control" id="date" placeholder="1234 Main St">
             </div>
 
             <div class="form-group">
-              <label for="inputAddress">Estado</label>
+              <label for="inputAddress">Status</label>
               <input type="text" formControlName="status" class="form-control" id="date" placeholder="1234 Main St">
             </div>
   
             <div class="form-group">
-              <label for="inputAddress">Enlace CV</label>
+              <label for="inputAddress">CV Link</label>
               <input type="text" formControlName="cvLink" class="form-control" id="date" placeholder="1234 Main St">
             </div>
             
@@ -76,10 +80,14 @@
               </select>
             </div>
 
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button class="btn btn-primary" type="submit" [disabled]="!applicantForm.valid" data-dismiss="">
-            <i class="fa fa-plus"></i> Añadir
-          </button>
+            <div class="row content-end">
+              <div class="col">
+                <button type="button" class="bg-orange py-2 px-4 rounded pr-4" data-dismiss="modal">Cerrar</button>
+                <button class="ml-4 py-2 px-4 bg-blue-500 rounded" type="submit" [disabled]="!applicantForm.valid" data-dismiss="">
+                  <i class="fa fa-plus"></i> Añadir
+                </button>
+              </div>
+            </div>
         </form>
       </div>
     </div>
@@ -101,125 +109,137 @@
               </div>
           </div>
 
-          <div class="overflow-hidden">
-              <table class="min-w-full divide-y divide-gray table-fixed divide-gray-light">
-                  <thead class="bg-blue">
-                      <tr>
-                          <th scope="col" class="table-th">
-                              Date
-                          </th>
-                          <th scope="col" class="table-th">
-                              Name
-                          </th>
-                          <th scope="col" class="table-th">
-                            ID
-                        </th>
-                          <th scope="col" class="table-th">
-                              Phone
-                          </th>
-                          <th scope="col" class="table-th">
-                            Email
-                          </th>
-                          <th scope="col" class="table-th">
-                            Status
-                          </th>
-                          <th scope="col" class="table-th">
-                              Actions
-                          </th>
-                      </tr>
-                  </thead>
-                  <tbody *ngFor="let applicant of applicants" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                      
-                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.date | date }}</td>
-                          <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap ">{{applicant.name }}</td>
-                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.nationalId }}</td>
-                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.phone }}</td>
-                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.email }}</td>
-                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{applicant.status }}</td>
-                          <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                            <button type="button" (click)="set_id_selected_apl(applicant.id)" class="text-white bg-gray-dark border-2 border-blue-500 py-2 px-3 rounded hover:bg-blue-500" data-toggle="modal" data-target="#processModal">
-                              Iniciar Proceso
-                            </button>
-                          </td>
-                      </tr>
-
-                  </tbody>
-              </table>
+          <div class="example-container mat-elevation-z8">
+            <mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter">
+              
+              <ng-container matColumnDef="Date">
+                <mat-header-cell class="table-th" *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.date | date}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Name">
+                <mat-header-cell class="table-th" *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                <a class="applicant-link" (click)="setApplicantId(element.id)" routerLink="/applicant">
+                  {{element.name}} 
+                </a>
+                </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Id">
+                <mat-header-cell class="table-th" *matHeaderCellDef> Id </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nationalId}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Phone">
+                <mat-header-cell class="table-th" *matHeaderCellDef> Phone </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.phone}}</mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Email">
+                <mat-header-cell class="table-th" *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.email}}</mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Status">
+                <mat-header-cell class="table-th" *matHeaderCellDef> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Actions">
+                <mat-header-cell class="table-th" *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let element">  
+                  <button type="button" (click)="set_id_selected_apl(element.id)" class="text-white bg-gray-dark border-2 border-blue-500 py-2 px-3 rounded hover:bg-blue-500" data-toggle="modal" data-target="#processModal">
+                    Add Status
+                  </button>
+                </mat-cell>
+              </ng-container>
+          
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </div>
+
       </div>
   </div>
 </div>
 
+
+
+
 <!-- Modal -->
 <!-- PROCESS MODAL-->
-<div class="modal fade" id="processModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="overflow-auto h-64 t-0 bg-gray bg-opacity-30 hidden fade fixed right-0 z-50 align-middle justify-center items-center h-modal md:h-full md:inset-0" id="processModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="applicantModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+
+    <div class="bg-gray modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Proceso</h3>
+        <h3 class="text-2xl font-bold text-white" id="exampleModalLabel">Add Status</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+
+      <div class="relative overflow-auto modal-body bg-gray-light bg-opacity-90">
+
         <form class="form-inline2" [formGroup]="processForm" (ngSubmit)="addProcess(id_selected_apl)">
 
           <div class="form-row">
                 
             <div class="form-group col-md-6">
-              <label for="inputEmail4">Etapa</label>
+              <label for="inputEmail4">Stage</label>
               <select class="form-control" formControlName="stage">
-                <option>Primera Entrevista</option>
-                <option>Entrevista Lider</option>
-                <option>Examen Médico</option>
-                <option>En proceso Contratación</option>
-                <option>Proceso Terminado</option>
+                <option>First Interview</option>
+                <option>Leader Interview</option>
+                <option>Medical Exam</option>
+                <option>Hired</option>
+                <option>Not continued</option>
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="inputPassword4">Fecha</label>
+              <label for="inputPassword4">Date</label>
               <input type="datetime-local" class="form-control" formControlName="date" id="inputPassword4" placeholder="Password">
             </div>
         </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputPassword4">Responsable</label>
+                  <label for="inputPassword4">Responsible</label>
                   <select class="form-control" formControlName="responsible">
-                    <option>Jeimy Ortega</option>
-                    <option>Jimena Sanchez</option>
-                    <option>Líder-Jefe-Gerente</option>
-                    <option>Unidad de Salud</option>
-                    <option>Otros</option>
+                    <option>Leader-Manager</option>
+                    <option>IPS</option>
+                    <option>Others</option>
                   </select>
                 </div>  
 
             </div>
 
             <div class="form-group">
-              <label for="inputAddress">Estado</label>
+              <label for="inputAddress">Status</label>
               <select class="form-control" formControlName="status">
-                <option>En proceso</option>
-                <option>Satisfactorio</option>
-                <option>No satisfactorio</option>
-                <option>Inconcluso</option>
-                <option>No continua en proceso</option>
-                <option>Otros</option>
+                <option>In process</option>
+                <option>Done</option>
+                <option>Pending</option>
+                <option>Inconcluse</option>
+                <option>Process ended</option>
+                <option>Others</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="inputAddress">Observaciones</label>
+              <label for="inputAddress">Observations</label>
               <input type="text" formControlName="comments" class="form-control" id="date" placeholder="obs">
             </div>
 
             <!-- <input type="hidden" name="applicant_id" value="name"> -->
+          <div class="row">
+            <button type="button" class="py-2 px-4 bg-orange rounded" data-dismiss="modal">Close</button>
+            <button class="ml-4 py-2 px-4 bg-blue rounded" type="submit" [disabled]="!processForm.valid">
+              <i class="fa fa-plus"></i> Add
+            </button>
+          </div>
 
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button class="btn btn-primary" type="submit" [disabled]="!processForm.valid">
-            <i class="fa fa-plus"></i> Añadir
-          </button>
         </form>
       </div>
     </div>

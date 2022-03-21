@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.loginRequestPayload.username = this.loginForm.get('username')?.value;
     this.loginRequestPayload.password = this.loginForm.get('password')?.value;
-    console.log(this.loginRequestPayload);
     this.auth.login(this.loginRequestPayload);
   }
 }

@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 // Components
-import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -15,15 +14,17 @@ import { NotFoundComponent } from './not-found/not-found.component';
 //custom imports
 import { ApplicantComponent } from './applicant/applicant.component';
 import { AgendaComponent } from './agenda/agenda.component';
+import { ApplicantPageComponent } from './applicant-page/applicant-page.component';
 
 const routes: Routes = [
   { path: 'applicants',component:ApplicantComponent},
   //other routes
   { path: '', component: LoginComponent },
+  { path: 'applicant',component: ApplicantPageComponent},
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'agenda', component: AgendaComponent},
+  { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuardLogin] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },

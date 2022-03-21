@@ -1,13 +1,17 @@
-<p>agenda works!</p>
-<!-- Button trigger modal -->
+<div class="card-header">
+  <div>
+    <h1 class="text-3xl text-gray-dark">Appointments</h1>
+  </div>
+</div>
 
-  <button mat-button (click)="exporter.exportTable('xlsx')">Exportar</button>
+  <button mat-button (click)="exporter.exportTable('xlsx')">Export</button>
+  
   <div class="example-container mat-elevation-z8">
     <mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter">
       
       <ng-container matColumnDef="Nombre">
         <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.apl_name}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.date | date }} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="Teléfono">
@@ -22,7 +26,7 @@
   
       <ng-container matColumnDef="Fecha">
         <mat-header-cell *matHeaderCellDef> Fecha Entrevista </mat-header-cell>
-        <mat-cell *matCellDef="let element"><div *ngFor="let dt of element['process']"><div *ngIf="dt['stage'] == 'Primera Entrevista'">{{dt['pr_date'] | date }} {{dt['pr_date'] | date:'shortTime' }}</div></div></mat-cell>
+        <mat-cell *matCellDef="let element"><div *ngFor="let dt of element['process']"><div *ngIf="dt['stage'] === 'First Interview'">{{dt['date'] | date }} {{dt['date'] | date:'shortTime' }}</div></div></mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Referido">

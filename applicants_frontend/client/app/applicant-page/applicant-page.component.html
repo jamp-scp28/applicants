@@ -1,0 +1,98 @@
+<div class="card-header">
+    <div>
+      <h1 class="text-3xl text-gray-dark">Applicant Page</h1>
+    </div>
+</div>
+
+<div class="row w-full h-full mt-5">
+<div class="col-4 w-full">
+
+    <div class="mb-2 text-white font-bold py-4 px-4 rounded bg-blue-500">
+        <h1 class="text-2xl">{{currentApplicant?.name}}</h1>
+        <p class="text-white">{{currentApplicant?.status}}</p>
+    </div>
+    
+    <div class="row mb-2 mt-2 p-2">
+        <div class="col pb-2 font-bold uppercase">
+            Phone:
+        </div>
+        <div class="col">
+            {{currentApplicant?.phone}}
+        </div>
+    </div>
+
+    <div class="row mb-2 mt-2 p-2">
+        <div class="col font-bold uppercase">
+            Email:
+        </div>
+        <div class="col">
+            {{currentApplicant?.email}}
+        </div>
+    </div>
+
+    <div class="row mb-2 mt-2 p-2">
+        <div class="col font-bold uppercase">
+            City:
+        </div>
+        <div class="col">
+            {{currentApplicant?.city}}
+        </div>
+    </div>
+    
+    <div class="row mb-2 mt-2 p-2">
+        <div class="col font-bold uppercase">
+            CV:
+        </div>
+        <div class="col">
+            {{currentApplicant?.cvLink}}
+        </div>
+    </div>
+    
+    <div class="justify-center text-gray mt-6">
+        <a routerLink="/applicants">
+            <svg class="w-12 h-12 text-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path></svg>
+        </a>
+    </div>
+
+</div>
+
+<div class="overflow-auto col-8 max-h-96 bg-gray-light bg-opacity-80 border-2 border-blue-500 rounded-2xl">
+
+    <div class="h-screen flex flex-col justify-start mt-1">
+    
+        <div *ngFor="let pr of process" class="flex flex-col pt-3 pb-4">
+          
+          <header class="flex flex-row gap-3 items-center">
+              <div class="text-sm font-bold text-gray-500"> {{pr?.date | date}} </div>
+          </header>
+          
+          <content class="grid grid-cols-2 gap-3">
+    
+            <div class="col-span-3 flex flex-col">
+              <div class="font-bold text-lg pt-3">
+                {{pr?.stage}}
+              </div>
+    
+              <div class="font-light text-sm pt-2">
+                {{pr?.comments}}
+            </div>
+            </div>
+            
+          </content>
+          
+          <footer class="flex flex-row pt-3 gap-3 items-center">
+
+            <button class="hover:bg-gray-300 delay-100 duration-100 bg-gray-200 rounded-full py-1 px-2 text-xs">
+              {{pr?.responsible}}
+            </button>
+            
+          </footer>
+                   
+        </div>
+      
+      
+        
+    </div>
+
+</div>
+</div>

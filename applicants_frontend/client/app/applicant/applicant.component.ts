@@ -7,6 +7,8 @@ import { ToastComponent } from '../shared/toast/toast.component';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
 import { Renderer2 } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
@@ -14,6 +16,12 @@ import { Renderer2 } from '@angular/core';
 })
 export class ApplicantComponent implements OnInit {
     @ViewChild('modalForm') modal!: ElementRef;
+    @ViewChild('applicantModal') applicantModal!: ElementRef;
+    @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+    displayedColumns = ['Date', 'Name', 'Id', 'Phone', 'Email', 'Status','Actions'];
+    public dataSource = new MatTableDataSource<Element>();
+
 
     id_selected_apl = '';
 
@@ -76,8 +84,27 @@ export class ApplicantComponent implements OnInit {
     this.getApplicants();
     this.getUsers();
     this.getApplicantProcess();
+    this.getInterviews();
 
+  }
 
+  getInterviews(){
+    this.applicantService.getProcess().subscribe(
+        (res) => {
+          console.log(res);
+        }
+    );
+    this.dataSource.paginator = this.paginator;
+  }
+
+  openModal(): void{
+    const aplMod = this.applicantModal.nativeElement;
+    this.render.setStyle(aplMod,'display','block');
+  }
+
+  closeModal(): void{
+    const aplMod = this.applicantModal.nativeElement;
+    this.render.setStyle(aplMod,'display','none');
   }
 
   set_id_selected_apl(id: any): void{
@@ -110,8 +137,9 @@ export class ApplicantComponent implements OnInit {
   }
 
   addApplicant(): void{
-    const mod = this.modal.nativeElement;
-    this.render.setStyle(mod,'display','hidden');
+    // const mod = this.modal.nativeElement;
+    // this.render.setStyle(mod,'display','hidden');
+
     console.log('receiving data...');
     console.log(this.applicantForm.value);
     this.applicantService.addApplicant(this.applicantForm.value).subscribe(
@@ -141,10 +169,11 @@ export class ApplicantComponent implements OnInit {
 
   getApplicants(): void{
     this.applicantService.getApplicant().subscribe(
-      data => this.applicants = data,
+      data => this.dataSource = new MatTableDataSource(data),
       error => console.log(error),
       () => this.isLoading = false
     );
+    this.dataSource.paginator = this.paginator;
   }
 
   getUsers(): void{
@@ -159,6 +188,10 @@ export class ApplicantComponent implements OnInit {
     this.applicantService.getApplicantProcess(10).subscribe(
       data => console.log(data),
     );
+  }
+
+  setApplicantId(id: number){
+    this.applicantService.applicantId = id;
   }
 
 }
